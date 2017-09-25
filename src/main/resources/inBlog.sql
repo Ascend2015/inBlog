@@ -1,0 +1,32 @@
+DROP TABLE IF EXISTS `articles`;
+CREATE TABLE `articles` (
+  `ID` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `author` bigint(20) unsigned NOT NULL DEFAULT '0' COMMENT '作者ID',
+  `post_date` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '文章创建时间',
+  `article_date_gmt` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '文章最近修改时间',
+  `content` longtext COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '文章内容',
+  `title` text COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '文章标题',
+  `digest` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `status` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'publish' COMMENT '文章状态',
+  `comment_status` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'open' COMMENT '评论状态',
+  `ping_status` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'open' COMMENT 'ping状态',
+  `arti_password` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '文章密码',
+  `arti_name` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '文章名字',
+  `to_ping` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `pinged` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `modified` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `modified_gmt` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `content_filtered` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `arti_parent` bigint(20) unsigned NOT NULL DEFAULT '0',
+  `guid` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  `menu_order` int(11) NOT NULL DEFAULT '0',
+  `arti_type` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'post' COMMENT '文章类型',
+  `mime_type` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '文件类型',
+  `comment_count` bigint(20) NOT NULL DEFAULT '0' COMMENT '评论数',
+  PRIMARY KEY (`ID`),
+  KEY `type_status_date` (`arti_type`,`status`,`post_date`,`ID`),
+  KEY `post_parent` (`arti_parent`),
+  KEY `post_author` (`author`),
+  KEY `post_name` (`arti_name`(191))
+) ENGINE=InnoDB AUTO_INCREMENT=289 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+

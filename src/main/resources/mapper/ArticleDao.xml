@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+        <mapper namespace="cn.tj212.dao.ArticleDao">
+    <select id="findAllPublish" resultType="cn.tj212.entity.Article">
+        SELECT `ID`,`article_title`,`article_date`,`article_content`
+        FROM
+            `articles`
+        WHERE `arti_type`='article'
+        AND
+            `status`='publish'
+        ORDER BY
+            `ID`
+        DESC
+        LIMIT #{offset},#{limit};
+    </select>
+
+    <select id="findAllNew" resultType="cn.tj212.entity.Article">
+        SELECT
+            `ID`,`title`
+        FROM
+            `articles`
+        WHERE `arti_type`='article'
+        AND
+            `status`='publish'
+        ORDER BY
+            `ID`
+        DESC
+        LIMIT 1,10;
+    </select>
+
+    <select id="getAllCount" resultType="int">
+        SELECT
+            count(*)
+        FROM `articles`;
+    </select>
+
+    <select id="getAllPostDateCount" resultType="cn.tj212.entity.Article">
+        SELECT
+            `post_date`,`ID`
+        FROM
+            `articles`
+        WHERE
+            `arti_type`='article'
+        AND
+            `status`='publish'
+        ORDER BY
+            `post_date`
+        DESC
+    </select>
+</mapper>
